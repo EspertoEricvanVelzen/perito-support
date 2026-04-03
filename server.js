@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const { loadContent, getPage, getInstrumenten, searchContent } = require('./lib/markdown');
 const { sendContactEmail } = require('./lib/mailer');
+const { buildSystemPrompt, chatWithClaude } = require('./lib/chat');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -124,6 +125,28 @@ app.post('/contact', async (req, res) => {
   } catch (err) {
     console.error('Email error:', err);
     res.render('contact', templateData(req, { sent: false, error: 'Er is een fout opgetreden bij het versturen. Probeer het later opnieuw of mail direct naar support@peritoprofessionalperformance.nl.' }));
+  }
+});
+
+// Chat API
+let chatSystemPrompt = '';
+app.post('/api/chat', async (req, res) => {
+  // Build system prompt on first use (after content is loaded)
+  if (!chatSystemPrompt && contentIndex) {
+    chatSystemPrompt = buildSystemPrompt(contentIndex);
+  }
+  const { messages } = req.body;
+  if (!messages || !Array.isArray(messages) || messages.length === 0) {
+    return res.json({ error: 'Geen bericht ontvangen.' });
+  }
+  // Limit conversation history to last 10 messages to manage token usage
+  const recentMessages = messages.slice(-10);
+  try {
+    const reply = await chatWithClaude(recentMessages, chatSystemPrompt);
+    res.json({ reply });
+  } catch (err) {
+    console.error('Chat error:', err.message);
+    res.json({ error: err.message });
   }
 });
 
