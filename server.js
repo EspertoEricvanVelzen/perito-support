@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const { loadContent, getPage, getInstrumenten, searchContent } = require('./lib/markdown');
