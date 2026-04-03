@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veelgestelde vragen — Perito Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/images/logo-kleur.svg">
+</head>
+<body>
+  <%- include('partials/header') %>
+  <main class="site-main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Veelgestelde vragen</span>
+      </nav>
+      <h1>Veelgestelde vragen</h1>
+      <p class="page-intro">Op deze pagina vindt u antwoorden op de meestgestelde vragen. Gebruik het zoekveld of de filters om snel te vinden wat u zoekt.</p>
+
+      <!-- FAQ search -->
+      <div class="faq-search-container">
+        <div class="faq-search-wrapper">
+          <svg class="faq-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" class="faq-search-input" id="faqSearch" placeholder="Zoek in veelgestelde vragen...">
+        </div>
+      </div>
+
+      <!-- Category filters -->
+      <div class="faq-filters" id="faqFilters">
+        <button class="faq-filter active" data-category="all">Alle</button>
+        <button class="faq-filter" data-category="inloggen">Inloggen</button>
+        <button class="faq-filter" data-category="links">Links & vragenlijsten</button>
+        <button class="faq-filter" data-category="herinneringen">Herinneringen</button>
+        <button class="faq-filter" data-category="evaluatierondes">Evaluatierondes</button>
+        <button class="faq-filter" data-category="deelnemers">Deelnemers & leden</button>
+        <button class="faq-filter" data-category="rapporten">Rapporten</button>
+        <button class="faq-filter" data-category="incept">INCEPT/IFMS</button>
+        <button class="faq-filter" data-category="privacy">Privacy</button>
+        <button class="faq-filter" data-category="technisch">Technisch</button>
+      </div>
+
+      <!-- FAQ content -->
+      <div class="faq-content" id="faqContent">
+        <%- page.html %>
+      </div>
+
+      <div class="faq-no-results" id="faqNoResults" style="display: none;">
+        <p>Geen resultaten gevonden voor uw zoekopdracht.</p>
+        <a href="/contact" class="btn btn-primary">Stel uw vraag aan ons team</a>
+      </div>
+
+      <div class="faq-cta">
+        <h3>Staat uw vraag er niet bij?</h3>
+        <p>Neem gerust contact met ons op. Wij helpen u graag verder.</p>
+        <a href="/contact" class="btn btn-primary">Contact opnemen</a>
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer') %>
+  <script src="/js/faq.js"></script>
+  <script src="/js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<% layout = 'layout' %>
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perito Support — Hulp en handleidingen</title>
+  <meta name="description" content="Support portaal voor Perito Professional Performance. Vind handleidingen, veelgestelde vragen en instructievideo's.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/images/logo-kleur.svg">
+</head>
+<body>
+  <%- include('partials/header') %>
+  <main class="site-main">
+
+    <!-- Hero section -->
+    <section class="hero">
+      <div class="container">
+        <h1>Hoe kunnen wij u helpen?</h1>
+        <p class="hero-subtitle">Vind handleidingen, antwoorden en instructievideo's voor Perito Professional Performance.</p>
+        <form class="hero-search" action="/zoeken" method="GET">
+          <div class="hero-search-wrapper">
+            <svg class="hero-search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" name="q" placeholder="Zoek in handleidingen, FAQ, instrumenten..." class="hero-search-input" id="heroSearchInput" autocomplete="off">
+            <button type="submit" class="hero-search-btn">Zoeken</button>
+          </div>
+          <div class="hero-suggestions" id="heroSuggestions"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Quick links -->
+    <section class="quick-links">
+      <div class="container">
+        <h2>Veelgezochte onderwerpen</h2>
+        <div class="cards-grid">
+          <% popularPages.forEach(function(item) { %>
+            <a href="<%= item.url %>" class="card">
+              <div class="card-icon">
+                <%- include('partials/icon', { name: item.icon }) %>
+              </div>
+              <h3><%= item.title %></h3>
+              <p><%= item.desc %></p>
+            </a>
+          <% }); %>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instruments preview -->
+    <section class="instruments-preview">
+      <div class="container">
+        <h2>Onze instrumenten</h2>
+        <p class="section-intro">Perito biedt gevalideerde meetinstrumenten voor evaluatie in de medische opleiding en het medisch functioneren.</p>
+        <div class="instrument-chips">
+          <% instrumenten.forEach(function(instr) { %>
+            <a href="/instrumenten/<%= instr.slug %>" class="instrument-chip" style="--chip-color: <%= instr.color %>">
+              <%= instr.name %>
+            </a>
+          <% }); %>
+        </div>
+        <a href="/instrumenten" class="btn btn-secondary">Bekijk alle instrumenten</a>
+        <a href="/instrument-wizard" class="btn btn-outline">Welk instrument past bij mij?</a>
+      </div>
+    </section>
+
+  </main>
+  <%- include('partials/footer') %>
+  <script src="/js/search.js"></script>
+</body>
+</html>

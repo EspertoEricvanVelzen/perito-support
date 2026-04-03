@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zoekresultaten<%= query ? ' voor "' + query + '"' : '' %> — Perito Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/images/logo-kleur.svg">
+</head>
+<body>
+  <%- include('partials/header') %>
+  <main class="site-main">
+    <div class="container">
+      <h1>Zoekresultaten</h1>
+      <form class="search-form-page" action="/zoeken" method="GET">
+        <input type="text" name="q" value="<%= query %>" class="search-input-page" placeholder="Zoek opnieuw...">
+        <button type="submit" class="btn btn-primary">Zoeken</button>
+      </form>
+
+      <% if (query && results.length > 0) { %>
+        <p class="search-count"><%= results.length %> resultaat<%= results.length !== 1 ? 'en' : '' %> voor "<strong><%= query %></strong>"</p>
+        <div class="search-results-list">
+          <% results.forEach(function(result) { %>
+            <a href="<%= result.url %>" class="search-result-item">
+              <h3><%= result.title %></h3>
+              <p class="search-snippet"><%= result.snippet %></p>
+              <span class="search-result-url"><%= result.url %></span>
+            </a>
+          <% }); %>
+        </div>
+      <% } else if (query) { %>
+        <div class="search-no-results">
+          <p>Geen resultaten gevonden voor "<strong><%= query %></strong>".</p>
+          <p>Suggesties:</p>
+          <ul>
+            <li>Controleer de spelling</li>
+            <li>Probeer andere zoekwoorden</li>
+            <li>Gebruik meer algemene termen</li>
+          </ul>
+          <a href="/faq" class="btn btn-secondary">Bekijk veelgestelde vragen</a>
+          <a href="/contact" class="btn btn-outline">Stel uw vraag aan ons team</a>
+        </div>
+      <% } %>
+    </div>
+  </main>
+  <%- include('partials/footer') %>
+  <script src="/js/search.js"></script>
+</body>
+</html>

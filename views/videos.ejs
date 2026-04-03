@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instructievideo's — Perito Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/images/logo-kleur.svg">
+</head>
+<body>
+  <%- include('partials/header') %>
+  <main class="site-main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Video's</span>
+      </nav>
+      <h1>Instructievideo's</h1>
+      <p class="page-intro">Bekijk onze instructievideo's om snel wegwijs te raken in het Perito-platform. De video's zijn gegroepeerd per onderwerp.</p>
+
+      <% videos.categories.forEach(function(category) { %>
+        <section class="video-category">
+          <h2><%= category.title %></h2>
+          <div class="videos-grid">
+            <% category.videos.forEach(function(video) { %>
+              <div class="video-card">
+                <div class="video-embed" data-vimeo-id="<%= video.id %>">
+                  <div class="video-placeholder" onclick="loadVideo(this, '<%= video.id %>')">
+                    <img src="https://vumbnail.com/<%= video.id %>.jpg" alt="<%= video.title %>" loading="lazy">
+                    <div class="video-play-btn">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    </div>
+                    <span class="video-duration"><%= video.duration %></span>
+                  </div>
+                </div>
+                <h3 class="video-title"><%= video.title %></h3>
+              </div>
+            <% }); %>
+          </div>
+        </section>
+      <% }); %>
+    </div>
+  </main>
+  <%- include('partials/footer') %>
+  <script>
+    function loadVideo(el, vimeoId) {
+      const wrapper = el.parentElement;
+      wrapper.innerHTML = '<iframe src="https://player.vimeo.com/video/' + vimeoId + '?autoplay=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>';
+    }
+  </script>
+  <script src="/js/search.js"></script>
+</body>
+</html>

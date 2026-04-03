@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' — ' : '' %>Perito Support</title>
+  <meta name="description" content="<%= typeof pageDescription !== 'undefined' ? pageDescription : 'Support portaal voor Perito Professional Performance — evaluatie-instrumenten voor medische opleidingen.' %>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/images/logo-kleur.svg">
+</head>
+<body>
+  <%- include('partials/header') %>
+  <main class="site-main">
+    <%- body %>
+  </main>
+  <%- include('partials/footer') %>
+  <script src="/js/search.js"></script>
+  <% if (typeof extraScripts !== 'undefined' && extraScripts) { %>
+    <% extraScripts.forEach(function(script) { %>
+      <script src="<%= script %>"></script>
+    <% }); %>
+  <% } %>
+</body>
+</html>

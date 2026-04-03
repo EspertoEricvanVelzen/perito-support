@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instrumenten — Perito Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/images/logo-kleur.svg">
+</head>
+<body>
+  <%- include('partials/header') %>
+  <main class="site-main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Instrumenten</span>
+      </nav>
+      <h1>Instrumenten</h1>
+      <p class="page-intro">Perito biedt gevalideerde meetinstrumenten voor evaluatie in de medische opleiding en het medisch functioneren. Kies hieronder het instrument dat u wilt opzetten.</p>
+      <div class="cta-bar">
+        <a href="/instrument-wizard" class="btn btn-primary">
+          <%- include('partials/icon', { name: 'compass' }) %>
+          Niet zeker welk instrument? Gebruik de wizard
+        </a>
+      </div>
+      <div class="instruments-grid">
+        <% instruments.forEach(function(instr) { %>
+          <a href="/instrumenten/<%= instr.slug %>" class="instrument-card" style="--card-accent: <%= instr.color %>">
+            <div class="instrument-card-icon">
+              <%- include('partials/icon', { name: instr.icon }) %>
+            </div>
+            <h3><%= instr.name %></h3>
+            <p><%= instr.shortDesc %></p>
+            <span class="instrument-card-link">Bekijk handleiding
+              <%- include('partials/icon', { name: 'arrow-right' }) %>
+            </span>
+          </a>
+        <% }); %>
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer') %>
+  <script src="/js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Perito Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/images/logo-kleur.svg">
+</head>
+<body>
+  <%- include('partials/header') %>
+  <main class="site-main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Contact</span>
+      </nav>
+      <div class="contact-page">
+        <div class="contact-info">
+          <h1>Contact opnemen</h1>
+          <p>Heeft u een vraag die niet in onze <a href="/faq">veelgestelde vragen</a> wordt beantwoord? Wij helpen u graag persoonlijk verder.</p>
+          <div class="contact-details">
+            <div class="contact-detail">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3290ce" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <a href="mailto:support@peritoprofessionalperformance.nl">support@peritoprofessionalperformance.nl</a>
+            </div>
+          </div>
+        </div>
+
+        <% if (sent) { %>
+          <div class="contact-success">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3290ce" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <h2>Bedankt voor uw bericht!</h2>
+            <p>Wij hebben uw vraag ontvangen en u ontvangt een bevestiging per e-mail. We proberen zo snel mogelijk te reageren.</p>
+            <a href="/" class="btn btn-primary">Terug naar de homepage</a>
+          </div>
+        <% } else { %>
+
+          <!-- Smart suggestions area -->
+          <div class="contact-suggestions" id="contactSuggestions" style="display: none;">
+            <h3>Misschien helpen deze antwoorden u al:</h3>
+            <div class="suggestion-results" id="suggestionResults"></div>
+            <p class="suggestion-dismiss">Staat uw antwoord er niet bij? Vul dan het formulier hieronder in.</p>
+          </div>
+
+          <% if (error) { %>
+            <div class="alert alert-error"><%= error %></div>
+          <% } %>
+
+          <form class="contact-form" method="POST" action="/contact" id="contactForm">
+            <div class="form-group">
+              <label for="naam">Naam <span class="required">*</span></label>
+              <input type="text" id="naam" name="naam" required placeholder="Uw volledige naam">
+            </div>
+            <div class="form-group">
+              <label for="email">E-mailadres <span class="required">*</span></label>
+              <input type="email" id="email" name="email" required placeholder="uw@emailadres.nl">
+            </div>
+            <div class="form-group">
+              <label for="onderwerp">Onderwerp</label>
+              <select id="onderwerp" name="onderwerp">
+                <option value="">Kies een onderwerp...</option>
+                <option value="Inloggen en toegang">Inloggen en toegang</option>
+                <option value="Evaluatieronde opzetten">Evaluatieronde opzetten</option>
+                <option value="Ledenbeheer">Ledenbeheer</option>
+                <option value="Rapporten">Rapporten</option>
+                <option value="INCEPT/IFMS">INCEPT/IFMS</option>
+                <option value="Technisch probleem">Technisch probleem</option>
+                <option value="Anders">Anders</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="vraag">Uw vraag <span class="required">*</span></label>
+              <textarea id="vraag" name="vraag" required rows="6" placeholder="Beschrijf uw vraag zo duidelijk mogelijk..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-submit">Verstuur bericht</button>
+          </form>
+        <% } %>
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer') %>
+  <script src="/js/contact.js"></script>
+  <script src="/js/search.js"></script>
+</body>
+</html>

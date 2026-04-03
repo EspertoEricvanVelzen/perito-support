@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instrument-wizard — Perito Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/images/logo-kleur.svg">
+</head>
+<body>
+  <%- include('partials/header') %>
+  <main class="site-main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Instrument-wizard</span>
+      </nav>
+      <div class="wizard-container">
+        <div class="wizard-header">
+          <h1>Welk instrument past bij uw situatie?</h1>
+          <p>Beantwoord een paar korte vragen en wij helpen u het juiste instrument te vinden.</p>
+        </div>
+        <div class="wizard-progress" id="wizardProgress">
+          <div class="wizard-progress-bar" id="wizardProgressBar"></div>
+        </div>
+        <div class="wizard-step active" id="wizardStep">
+          <!-- Filled by JavaScript -->
+        </div>
+        <div class="wizard-result" id="wizardResult" style="display: none;">
+          <!-- Filled by JavaScript -->
+        </div>
+        <div class="wizard-actions">
+          <button class="btn btn-outline wizard-back" id="wizardBack" style="display: none;">
+            Vorige vraag
+          </button>
+          <button class="btn btn-outline wizard-restart" id="wizardRestart" style="display: none;">
+            Opnieuw beginnen
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer') %>
+  <script>
+    const wizardFlow = <%- JSON.stringify(wizardFlow) %>;
+  </script>
+  <script src="/js/wizard.js"></script>
+  <script src="/js/search.js"></script>
+</body>
+</html>

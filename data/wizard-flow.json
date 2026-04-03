@@ -1,0 +1,94 @@
+{
+  "steps": [
+    {
+      "id": "who-evaluated",
+      "question": "Wie wordt er geëvalueerd?",
+      "options": [
+        { "label": "De opleiding / het opleidingsklimaat", "next": "who-evaluates-opleiding" },
+        { "label": "Een individuele medisch specialist / opleider", "next": "what-type-specialist" },
+        { "label": "Het welzijn van medewerkers", "next": "result-wellnext" },
+        { "label": "Ik wil een eigen korte peiling houden", "next": "result-whatsup" }
+      ]
+    },
+    {
+      "id": "who-evaluates-opleiding",
+      "question": "Wie vult de evaluatie in?",
+      "options": [
+        { "label": "A(N)IOS (artsen in opleiding)", "next": "result-drect" },
+        { "label": "Verpleegkundigen", "next": "result-blinc" }
+      ]
+    },
+    {
+      "id": "what-type-specialist",
+      "question": "Wat wilt u evalueren?",
+      "options": [
+        { "label": "Opleiderskwaliteiten (door A(N)IOS beoordeeld)", "next": "result-setq" },
+        { "label": "Functioneren als opleider (door stafleden beoordeeld)", "next": "result-teamq" },
+        { "label": "360-graden feedback (meerdere bronnen)", "next": "result-incept" }
+      ]
+    },
+    {
+      "id": "result-drect",
+      "result": {
+        "instrument": "D-RECT",
+        "description": "Het D-RECT instrument meet het opleidingsklimaat vanuit het perspectief van A(N)IOS. Artsen in opleiding evalueren hoe zij de opleiding en de opleidingsomgeving ervaren.",
+        "url": "/instrumenten/d-rect",
+        "color": "#3290ce"
+      }
+    },
+    {
+      "id": "result-blinc",
+      "result": {
+        "instrument": "BLiNC",
+        "description": "Het BLiNC instrument meet het leerklimaat vanuit het perspectief van verpleegkundigen en verpleegkundig specialisten in opleiding.",
+        "url": "/instrumenten/blinc",
+        "color": "#02799f"
+      }
+    },
+    {
+      "id": "result-setq",
+      "result": {
+        "instrument": "SETQ / SETQ Focus",
+        "description": "Met SETQ beoordelen A(N)IOS de opleiderskwaliteiten van individuele medisch specialisten. SETQ Focus biedt de mogelijkheid om in te zoomen op specifieke domeinen.",
+        "url": "/instrumenten/setq",
+        "color": "#f16529"
+      }
+    },
+    {
+      "id": "result-teamq",
+      "result": {
+        "instrument": "TeamQ",
+        "description": "Met TeamQ evalueren stafleden het functioneren van de opleider (hoofd van de opleiding). Het biedt inzicht vanuit het team.",
+        "url": "/instrumenten/teamq",
+        "color": "#933034"
+      }
+    },
+    {
+      "id": "result-incept",
+      "result": {
+        "instrument": "INCEPT/IFMS",
+        "description": "INCEPT/IFMS is een 360-graden feedback instrument voor medisch specialisten. Collega's, verpleegkundigen en andere samenwerkingspartners geven feedback op het professioneel functioneren.",
+        "url": "/instrumenten/incept-ifms-coordinatoren",
+        "color": "#ea1d23"
+      }
+    },
+    {
+      "id": "result-wellnext",
+      "result": {
+        "instrument": "WellNext Scan",
+        "description": "De WellNext Scan (voorheen VITA) brengt het welzijn en de werkbeleving van medewerkers in kaart. Ideaal voor het signaleren van werkdruk en het versterken van veerkracht.",
+        "url": "/instrumenten/wellnext-scan",
+        "color": "#02799f"
+      }
+    },
+    {
+      "id": "result-whatsup",
+      "result": {
+        "instrument": "What's Up",
+        "description": "What's Up is een korte, flexibele peiling met maximaal 6 eigen open vragen. Handig voor snelle, informele evaluaties.",
+        "url": "/instrumenten/whats-up",
+        "color": "#f16529"
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagina niet gevonden — Perito Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/images/logo-kleur.svg">
+</head>
+<body>
+  <%- include('partials/header') %>
+  <main class="site-main">
+    <div class="container">
+      <div class="error-page">
+        <h1>404</h1>
+        <h2>Pagina niet gevonden</h2>
+        <p>De pagina die u zoekt bestaat niet of is verplaatst.</p>
+        <div class="error-actions">
+          <a href="/" class="btn btn-primary">Naar de homepage</a>
+          <a href="/faq" class="btn btn-secondary">Veelgestelde vragen</a>
+          <a href="/contact" class="btn btn-outline">Contact opnemen</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer') %>
+  <script src="/js/search.js"></script>
+</body>
+</html>
