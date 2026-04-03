@@ -61,13 +61,9 @@ In plaats van verwijderen zet u personen **op inactief**. Een inactieve persoon 
 
 Bij de wisseling van A(N)IOS (bijvoorbeeld aan het begin van een nieuw opleidingsjaar) kunt u in één keer alle vertrokken A(N)IOS deactiveren en de nieuwe groep importeren. Dit gaat als volgt:
 
-### Stap 1. Open het uitgebreide ledenbeheer
+### Stap 1. Open het ledenbeheer
 
-Pas de URL in de adresbalk van uw browser aan. U ziet nu waarschijnlijk iets als:
-
-`https://xxx.perito.one/admin#!` of `https://xxx.perito.one/admin#!/members`
-
-Vervang het laatste gedeelte naar `/admin2/members` (en laat wat ervoor staat intact). Dit opent het uitgebreide ledenbeheer.
+Open het ledenbeheer.
 
 ### Stap 2. Alle huidige leden deactiveren
 
