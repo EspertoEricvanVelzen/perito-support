@@ -30,7 +30,7 @@
     const sectionTitle = h2.textContent.trim().toLowerCase();
     const category = categoryMap[sectionTitle] || 'other';
 
-    // Collect all elements between this h2 and the next h2 or hr
+    // Collect all elements between this h2 and the next h2
     let el = h2.nextElementSibling;
     const items = [];
     let currentQuestion = null;
@@ -41,16 +41,42 @@
         el = el.nextElementSibling;
         continue;
       }
-      if (el.tagName === 'STRONG' || (el.tagName === 'P' && el.querySelector('strong') && el.textContent.trim().endsWith('?'))) {
+
+      // Check if this <p> starts with a <strong> that contains a question
+      var strong = (el.tagName === 'P') ? el.querySelector('strong:first-child') : null;
+      var isQuestion = false;
+
+      if (strong) {
+        var strongText = strong.textContent.trim();
+        // The <strong> must end with ? and be at the start of the <p>
+        if (strongText.endsWith('?')) {
+          isQuestion = true;
+        }
+      }
+
+      if (isQuestion) {
         // Save previous Q&A
         if (currentQuestion) {
           items.push({ question: currentQuestion, answer: currentAnswer.join(''), category: category });
         }
-        currentQuestion = el.textContent.trim();
+        currentQuestion = strong.textContent.trim();
         currentAnswer = [];
+
+        // The answer might be in the same <p> element, after the <strong>
+        // Extract the text after </strong> as the first part of the answer
+        var clone = el.cloneNode(true);
+        var strongInClone = clone.querySelector('strong:first-child');
+        if (strongInClone) strongInClone.remove();
+        var remainingHtml = clone.innerHTML.trim();
+        // Remove leading <br> tags
+        remainingHtml = remainingHtml.replace(/^(<br\s*\/?>|\s)+/i, '');
+        if (remainingHtml) {
+          currentAnswer.push('<p>' + remainingHtml + '</p>');
+        }
       } else if (currentQuestion) {
         currentAnswer.push(el.outerHTML);
       }
+
       el = el.nextElementSibling;
     }
     // Save last Q&A
@@ -63,14 +89,14 @@
 
   // Rebuild as accordion
   function renderFaq(filter, searchQuery) {
-    let html = '';
-    let visibleCount = 0;
-    const query = (searchQuery || '').toLowerCase();
+    var html = '';
+    var visibleCount = 0;
+    var query = (searchQuery || '').toLowerCase();
 
     sections.forEach(function(section) {
-      const filteredItems = section.items.filter(function(item) {
-        const matchesCategory = filter === 'all' || item.category === filter;
-        const matchesSearch = !query ||
+      var filteredItems = section.items.filter(function(item) {
+        var matchesCategory = filter === 'all' || item.category === filter;
+        var matchesSearch = !query ||
           item.question.toLowerCase().includes(query) ||
           item.answer.toLowerCase().includes(query);
         return matchesCategory && matchesSearch;
@@ -82,7 +108,7 @@
       html += '<div class="faq-section" data-category="' + section.category + '">';
       html += '<h2 class="faq-section-title">' + section.title + '</h2>';
       filteredItems.forEach(function(item) {
-        const highlighted = query ? highlightText(item.question, query) : item.question;
+        var highlighted = query ? highlightText(item.question, query) : escapeHtml(item.question);
         html += '<div class="faq-item">';
         html += '<button class="faq-question" aria-expanded="false">';
         html += '<span>' + highlighted + '</span>';
@@ -100,16 +126,23 @@
     // Bind accordion clicks
     faqContent.querySelectorAll('.faq-question').forEach(function(btn) {
       btn.addEventListener('click', function() {
-        const expanded = this.getAttribute('aria-expanded') === 'true';
-        this.setAttribute('aria-expanded', !expanded);
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
         this.parentElement.classList.toggle('open');
       });
     });
   }
 
   function highlightText(text, query) {
-    const regex = new RegExp('(' + escapeRegex(query) + ')', 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
+    var safe = escapeHtml(text);
+    var regex = new RegExp('(' + escapeRegex(query) + ')', 'gi');
+    return safe.replace(regex, '<mark>$1</mark>');
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
   }
 
   function escapeRegex(str) {
@@ -117,10 +150,10 @@
   }
 
   // Filter buttons
-  let activeCategory = 'all';
+  var activeCategory = 'all';
   if (faqFilters) {
     faqFilters.addEventListener('click', function(e) {
-      const btn = e.target.closest('.faq-filter');
+      var btn = e.target.closest('.faq-filter');
       if (!btn) return;
       activeCategory = btn.dataset.category;
       faqFilters.querySelectorAll('.faq-filter').forEach(function(b) { b.classList.remove('active'); });
@@ -131,7 +164,7 @@
 
   // Search input
   if (faqSearch) {
-    let debounceTimer;
+    var debounceTimer;
     faqSearch.addEventListener('input', function() {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(function() {
